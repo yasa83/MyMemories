@@ -27,8 +27,11 @@
 
         // 空チェック
         // ifemptyを使うと０もbkankとして処理されてしまう
+        $count_title = strlen($title);
         if($title ==''){
             $errors['title'] = 'blank';
+        } elseif ($count_title > 24) {
+            $errors['title'] = 'length';
         }
 
         if($detail == ''){
@@ -36,10 +39,10 @@
         }
 
 
-        $count = strlen($detail);
+        $count_detail = strlen($detail);
         if($detail == ''){
             $errors['detail'] = 'blank';
-        } elseif ($count >= 140 ){
+        } elseif ($count_detail >= 140 ){
             $errors['detail'] = 'length';
         }
 
@@ -144,7 +147,12 @@
             <?php if (isset($errors['title']) && $errors['title'] == 'blank'): ?>
                 <p class="text-danger">タイトルを入力してください</p>
             <?php endif; ?>
+            <?php if (isset($errors['title']) && $errors['title'] == 'length') :?>
+                <p class="text-danger">タイトルは24字以内で入力してください</p>
+            <?php endif; ?>
+            
           </div>
+
 
           <div class="form-group">
             <label for="date">日付</label>
