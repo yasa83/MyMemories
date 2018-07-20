@@ -156,7 +156,7 @@
 
           <div class="form-group">
             <label for="date">日付</label>
-            <input type="date" name="input_date" class="form-control">
+            <input type="date" name="input_date" class="form-control" value="<?php echo htmlspecialchars($date); ?>">
             <?php if(isset($errors['date']) && $errors['date'] == 'blank'): ?>
                 <p class="text-danger">日付を入力してください</p>
             <?php endif; ?>
@@ -164,11 +164,16 @@
 
           <div class="form-group">
             <label for="detail">詳細</label>
-            <textarea name="input_detail" class="form-control" rows="3" placeholder="場所、カメラ、天気などの詳細を140字以内で記述してください"></textarea><br>
+            <textarea name="input_detail" class="form-control" rows="3" placeholder="場所、カメラ、天気などの詳細を140字以内で記述してください" value="<?php echo htmlspecialchars($detail); ?>">
+            </textarea><br>
             <?php if(isset($errors['detail']) && $errors['detail'] == 'blank'): ?>
                 <p class="text-danger">詳細を入力してください</p>
             <?php endif; ?>
+            <?php if (isset($errors['detail']) && $errors['detail'] == 'length') :?>
+                <p class="text-danger">詳細は140字以内で入力してください</p>
+            <?php endif; ?>
           </div>
+
           <div class="form-group">
             <label for="img_name">写真</label>
             <input type="file" name="input_img_name" id="img_name">
