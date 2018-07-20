@@ -185,7 +185,11 @@
             <p class="text-danger">拡張子が「jpg」「png」「gif」「jpge」の画像を選択して下さい</p>
             <?php endif; ?>
           </div><br>
-          <input type="submit" class="btn btn-primary" value="投稿">
+
+          <ul class="nav navbar-nav navbar-left">
+            <li class="active"><a href="index.php" style="margin: 12px;">戻る</a></li>
+          </ul>
+          <input type="submit" class="btn btn-primary" href="check.php" value="投稿">
         </form>
       </div>
     </div>
