@@ -176,7 +176,14 @@
 
           <div class="form-group">
             <label for="img_name">写真</label>
-            <input type="file" name="input_img_name" id="img_name">
+            <input type="file" name="input_img_name" id="img_name/*"
+            id="img_name">
+            <?php if(isset($errors['img_name']) && $errors['img_name'] == 'blank'): ?>
+            <p class="text-danger">画像を選択してください</p>
+            <?php endif; ?>
+            <?php if(isset($errors['img_name']) && $errors['img_name'] == 'type'): ?>
+            <p class="text-danger">拡張子が「jpg」「png」「gif」「jpge」の画像を選択して下さい</p>
+            <?php endif; ?>
           </div><br>
           <input type="submit" class="btn btn-primary" value="投稿">
         </form>
