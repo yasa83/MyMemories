@@ -66,25 +66,25 @@
     		<div class="row centered mt grid">
     			<h3>Album</h3>
     			<div class="col-lg-4">
-    				<a href="detail.html" class="trim"><img class="picture" src="assets/img/background_img2.jpg" alt=""></a>
+    				<a href="detail.php" class="trim"><img class="picture" src="assets/img/background_img2.jpg" alt=""></a>
     			</div>
     			<div class="col-lg-4">
-    				<a href="#"><img class="picture" src="assets/img/02.jpg" alt=""></a>
+    				<a href="detail.php"><img class="picture" src="assets/img/02.jpg" alt=""></a>
     			</div>
     			<div class="col-lg-4">
-    				<a href="#"><img class="picture" src="assets/img/03.jpg" alt=""></a>
+    				<a href="detail.php"><img class="picture" src="assets/img/03.jpg" alt=""></a>
     			</div>
     		</div>
     		
     		<div class="row centered mt grid">
     			<div class="col-lg-4">
-    				<a href="#"><img class="picture" src="assets/img/04.jpg" alt=""></a>
+    				<a href="detail.php"><img class="picture" src="assets/img/04.jpg" alt=""></a>
     			</div>
     			<div class="col-lg-4">
-    				<a href="#"><img class="picture" src="assets/img/05.jpg" alt=""></a>
+    				<a href="detail.php"><img class="picture" src="assets/img/05.jpg" alt=""></a>
     			</div>
     			<div class="col-lg-4">
-    				<a href="#"><img class="picture" src="assets/img/06.jpg" alt=""></a>
+    				<a href="detail.php"><img class="picture" src="assets/img/06.jpg" alt=""></a>
     			</div>
         </div>
   		</div>
