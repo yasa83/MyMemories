@@ -72,8 +72,8 @@
         
 
         $_SESSION['title'] = $_POST['input_title'];
-        $_SESSION['date'] = $_POST['date'];
-        $_SESSION['detail'] = $_POST['detail'];
+        $_SESSION['date'] = $_POST['input_date'];
+        $_SESSION['detail'] = $_POST['input_detail'];
         $_SESSION['img_name'] = $submit_file_name;
 
         
