@@ -6,24 +6,26 @@
     $title = '';
     $date = '';
     $detail = '';
-    $img_name = '';
+    $errors = [];
 
     //check.phpから戻って来たときの処理
     if(isset($_GET['action']) && $_GET['action'] == 'rewrite'){
-        $_POST['input_title'] = $_SESSION['title'];
-        $_POST['input_date'] = $_SESSION['date'];
-        $_POST['input_detail'] = $_SESSION['detail'];
+        $_POST['input_title'] = $_SESSION['register']['title'];
+        $_POST['input_date'] = $_SESSION['register']['date'];
+        $_POST['input_detail'] = $_SESSION['register']['detail'];
+
         $errors['rewrite'] =true;
     }
 
-       // emptyは空かどうかを調べる
-    // isssetは変数が存在するかどうかチェック
+        // emptyは空かどうかを調べる
+        // isssetは変数が存在するかどうかチェック
 
     // 空のものがあるとポスト送信しない
     if(!empty($_POST)){
         $title = $_POST['input_title'];
         $date = $_POST['input_date'];
         $detail = $_POST['input_detail'];
+
 
         // 空チェック
         // ifemptyを使うと０もbkankとして処理されてしまう
@@ -54,7 +56,7 @@
 
         if(!empty($file_name)){ 
             // 拡張子のチェック
-            $file_type =substr($file_name, -3);
+            $file_type =substr($file_name,-3);
             $file_type = strtolower($file_type);
 
              if($file_type != 'jpg' && $file_type != 'png' && $file_type != 'gif' && $file_type != 'jpge'){
@@ -71,10 +73,10 @@
             move_uploaded_file($_FILES['input_img_name']['tmp_name'],'/post_img/'.$submit_file_name);
         
 
-        $_SESSION['title'] = $_POST['input_title'];
-        $_SESSION['date'] = $_POST['input_date'];
-        $_SESSION['detail'] = $_POST['input_detail'];
-        $_SESSION['img_name'] = $submit_file_name;
+        $_SESSION['register']['title'] = $_POST['input_title'];
+        $_SESSION['register']['date'] = $_POST['input_date'];
+        $_SESSION['register']['detail'] = $_POST['input_detail'];
+        $_SESSION['register']['img_name'] = $submit_file_name;
 
         
 
@@ -130,7 +132,7 @@
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li class="active"><a href="index.html">Main page</a></li>
+            <li class="active"><a href="index.php">Main page</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -164,7 +166,7 @@
 
           <div class="form-group">
             <label for="detail">詳細</label>
-            <textarea name="input_detail" class="form-control" rows="3" placeholder="場所、カメラ、天気などの詳細を140字以内で記述してください" value="<?php echo htmlspecialchars($detail); ?>">
+            <textarea type="text" name="input_detail" class="form-control" rows="4" placeholder="場所、天気、カメラなどの詳細を140字以内で記述してください" value="<?php echo htmlspecialchars($detail); ?>">
             </textarea><br>
             <?php if(isset($errors['detail']) && $errors['detail'] == 'blank'): ?>
                 <p class="text-danger">詳細を入力してください</p>
@@ -176,7 +178,7 @@
 
           <div class="form-group">
             <label for="img_name">写真</label>
-            <input type="file" name="input_img_name" id="img_name/*"
+            <input type="file" name="input_img_name" id="image/*"
             id="img_name">
             <?php if(isset($errors['img_name']) && $errors['img_name'] == 'blank'): ?>
             <p class="text-danger">画像を選択してください</p>
@@ -184,12 +186,14 @@
             <?php if(isset($errors['img_name']) && $errors['img_name'] == 'type'): ?>
             <p class="text-danger">拡張子が「jpg」「png」「gif」「jpge」の画像を選択して下さい</p>
             <?php endif; ?>
-          </div><br>
+          </div>
+
+          <br>
 
           <ul class="nav navbar-nav navbar-left">
             <li class="active"><a href="index.php" style="margin: 12px;">戻る</a></li>
           </ul>
-          <input type="submit" class="btn btn-primary" href="check.php" value="投稿">
+          <input type="submit" class="btn btn-primary" value="投稿">
         </form>
       </div>
     </div>
