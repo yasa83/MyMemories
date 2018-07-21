@@ -5,15 +5,15 @@ session_start();
 require_once('dbconnect.php');
 
 // 直接このページに来たらpost.phpに飛ぶようにする
-if(!isset($_SESSION)){
+if(!isset($_SESSION['register'])){
     header('Location:post.php');
     exit();
 }
 //出力テスト
-$title = $_SESSION['title'];
-$date = $_SESSION['date'];
-$detail = $_SESSION['detail'];
-$img_name = $_SESSION['img_name'];
+$title = $_SESSION['register']['title'];
+$date = $_SESSION['register']['date'];
+$detail = $_SESSION['register']['detail'];
+$img_name = $_SESSION['register']['img_name'];
 
 // 登録ボタンが押された時のみ処理するif文
 if(!empty($_POST)){
@@ -22,7 +22,7 @@ if(!empty($_POST)){
     $stmt = $dbh->prepare($sql);
     $stmt->execute($data);
 
-    unset($_SESSION);
+    unset($_SESSION['register']);
     header("Location:thanks.php");
     exit();
 }
