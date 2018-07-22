@@ -103,11 +103,24 @@ require_once('dbconnect.php');
             <a class="trim"><img class="picture" src="post_img/<?php echo $comment['img_name']; ?>" class="img-responsive img-thumbnail"></a>
           </div>
           <div class="col-xs-8">
+
+            <form action="update.php" method="post">
             <div class="details">
-              <h3 class="post-title"><?php echo $comment['title'] ?></h3>
-              <h4 class="post-date"><?php echo $comment['date'] ?></h4><br>
-              <h3 class="post-detail"><?php echo $comment['detail'] ?></h3>
+              <h3>写真タイトル</h3>
+              <input type="text" name="title" class="form-control" id="validate-text" placeholder="title" required value="<?php echo $comment['title'] ?>">
+              <input type="hidden" name="id" value="<?php echo $comment['id'] ?>">
+
+              <h3>撮影日</h3>
+              <input type="text" name="date" class="form-control" id="validate-text" placeholder="date" required value="<?php echo $comment['date'] ?>">
+              <input type="hidden" name="id" value="<?php echo $comment['id'] ?>">
+
+              <h3>詳細</h3>
+              <input type="text" name="detail" class="form-control" id="validate-text" placeholder="detail" required value="<?php echo $comment['detail'] ?>">
+              <input type="hidden" name="id" value="<?php echo $comment['id'] ?>">
             </div>
+            <button type="submit" class="btn btn-primary col-xs-3" >編集</button>
+          </form>
+
           </div>
         </div>
         <a href="delete.php?id=<?php echo $comment["id"]; ?>" class="btn btn-danger" style="color: white">削除</a>
