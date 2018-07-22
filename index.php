@@ -1,3 +1,44 @@
+<?php
+// session_start();
+
+// データベースに接続
+require_once('dbconnect.php');
+
+//出力テスト
+// $title = $_SESSION['register']['title'];
+// $date = $_SESSION['register']['date'];
+// $detail = $_SESSION['register']['detail'];
+// $img_name = $_SESSION['register']['img_name'];
+
+    //データを取り出す
+// 登録ボタンが押された時のみ処理するif文
+// if(!empty($_POST)){
+    $sql = 'SELECT * FROM `feeds`';
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute();
+
+
+$comments = array();
+    while (1) {
+        $rec = $stmt->fetch(PDO::FETCH_ASSOC);
+        if($rec == false) {
+        break;
+              }
+    $comments[] = $rec;
+              }
+
+    $dbh = null;
+
+
+    // unset($_SESSION['register']);
+
+    // exit();
+// }
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -65,18 +106,18 @@
       <div class="main-contents">
     		<div class="row centered mt grid">
     			<h3>Album</h3>
+
+
+           <?php foreach ($comments as $comment): ?>
     			<div class="col-lg-4">
-    				<a href="detail.php" class="trim"><img class="picture" src="assets/img/background_img2.jpg" alt=""></a>
+    				<a href="detail.php" class="trim"><img class="picture" src="post_img/<?php echo $comment['img_name']; ?>" class="img-responsive img-thumbnail"></a>
     			</div>
-    			<div class="col-lg-4">
-    				<a href="detail.php"><img class="picture" src="assets/img/02.jpg" alt=""></a>
-    			</div>
-    			<div class="col-lg-4">
-    				<a href="detail.php"><img class="picture" src="assets/img/03.jpg" alt=""></a>
-    			</div>
+          <?php endforeach; ?>
     		</div>
     		
-    		<div class="row centered mt grid">
+
+
+    		<!-- <div class="row centered mt grid">
     			<div class="col-lg-4">
     				<a href="detail.php"><img class="picture" src="assets/img/04.jpg" alt=""></a>
     			</div>
@@ -86,7 +127,7 @@
     			<div class="col-lg-4">
     				<a href="detail.php"><img class="picture" src="assets/img/06.jpg" alt=""></a>
     			</div>
-        </div>
+        </div> -->
   		</div>
   	</div>
 
