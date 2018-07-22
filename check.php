@@ -16,8 +16,8 @@ $detail = $_SESSION['register']['detail'];
 $img_name = $_SESSION['register']['img_name'];
 
 // 登録ボタンが押された時のみ処理するif文
-if(!empty($_POST)){
-    $sql = 'INSERT INTO `feeds` SET `title` =?, `date` = ?,`detail` = ?,`img_name`=?, `created`=NOW()';
+// if(!empty($_POST)){
+    $sql = 'INSERT INTO `feeds` SET `title` =?, `date` = ?,`detail` = ?,`img_name`=?';
     $data = array($title,$date,$detail,$img_name);
     $stmt = $dbh->prepare($sql);
     $stmt->execute($data);
@@ -25,7 +25,7 @@ if(!empty($_POST)){
     unset($_SESSION['register']);
     header("Location:thanks.php");
     exit();
-}
+// }
 
 ?>
 
