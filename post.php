@@ -70,7 +70,7 @@
         if (empty($errors)){
             $date_str = date('YmdHis');
             $submit_file_name = $date_str.$file_name;
-            move_uploaded_file($_FILES['input_img_name']['tmp_name'],'/post_img/'.$submit_file_name);
+            move_uploaded_file($_FILES['input_img_name']['tmp_name'],'post_img/'.$submit_file_name);
         
 
         $_SESSION['register']['title'] = $_POST['input_title'];
@@ -166,8 +166,8 @@
 
           <div class="form-group">
             <label for="detail">詳細</label>
-            <textarea type="text" name="input_detail" class="form-control" rows="4" placeholder="場所、天気、カメラなどの詳細を140字以内で記述してください" value="<?php echo htmlspecialchars($detail); ?>">
-            </textarea><br>
+            <input type="text" name="input_detail" class="form-control" rows="4" placeholder="場所、天気、カメラなどの詳細を140字以内で記述してください" value="<?php echo htmlspecialchars($detail); ?>">
+            
             <?php if(isset($errors['detail']) && $errors['detail'] == 'blank'): ?>
                 <p class="text-danger">詳細を入力してください</p>
             <?php endif; ?>
