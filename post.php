@@ -32,7 +32,7 @@
         $count_title = strlen($title);
         if($title ==''){
             $errors['title'] = 'blank';
-        } elseif ($count_title > 24) {
+        } elseif ($count_title >= 24) {
             $errors['title'] = 'length';
         }
 
