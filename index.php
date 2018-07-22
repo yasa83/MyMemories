@@ -110,7 +110,8 @@ $comments = array();
 
            <?php foreach ($comments as $comment): ?>
     			<div class="col-lg-4">
-    				<a href="detail.php" class="trim"><img class="picture" src="post_img/<?php echo $comment['img_name']; ?>" class="img-responsive img-thumbnail"></a>
+    				<a href="detail.php?id=<?php echo $comment["id"]; ?>" class="trim"><img class="picture" src="post_img/<?php echo $comment['img_name']; ?>" class="img-responsive img-thumbnail"></a>
+
     			</div>
           <?php endforeach; ?>
     		</div>
