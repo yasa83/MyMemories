@@ -1,3 +1,49 @@
+<?php
+// session_start();
+
+// データベースに接続
+require_once('dbconnect.php');
+
+//出力テスト
+// $title = $_SESSION['register']['title'];
+// $date = $_SESSION['register']['date'];
+// $detail = $_SESSION['register']['detail'];
+// $img_name = $_SESSION['register']['img_name'];
+
+    // DBからデータを取得する処理
+    $sql = 'SELECT * FROM `feeds` WHERE `id` = ?';
+    $data[] = $_GET['id'];
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute($data);
+    $comment = $stmt->fetch(PDO::FETCH_ASSOC);
+    $dbh = null;
+
+
+// $comments = array();
+//     while (1) {
+//         $rec = $stmt->fetch(PDO::FETCH_ASSOC);
+//         if($rec == false) {
+//         break;
+//               }
+//     $comments[] = $rec;
+//               }
+
+//     $dbh = null;
+
+
+    // unset($_SESSION['register']);
+
+    // exit();
+// }
+
+?>
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -42,7 +88,7 @@
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li class="active"><a href="index.html">Main page</a></li>
+            <li class="active"><a href="index.php">Main page</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -51,19 +97,24 @@
     <div class="container">
       <div class="main-contents">
         <div class="col-lg-10 col-lg-offset-1 centered">
+          
           <div class="col-xs-4">
-            <a href="" class="trim"><img class="picture" src="assets/img/background_img2.jpg" alt=""></a>
+            
+            <a class="trim"><img class="picture" src="post_img/<?php echo $comment['img_name']; ?>" class="img-responsive img-thumbnail"></a>
           </div>
           <div class="col-xs-8">
             <div class="details">
-              <h3 class="post-title">タイトル（２４文字まで）</h3>
-              <h4 class="post-date">2018/12/09</h4><br>
-              <h3 class="post-detail">ここに内容を書きます。ここに内容を書きます。ここに内容を書きます。ここに内容を書きます。ここに内容を書きます。ここに内容を書きます。ここに内容を書きます。ここに内容を書きます。ここに内容を書きます。ここに内容を書きます。ここに内容を書きます。ここに内容を書きます。ここに内容を書きます。ここに内容を書きます。ここに内容を書きます。（１４０文字まで）</h3>
+              <h3 class="post-title"><?php echo $comment['title'] ?></h3>
+              <h4 class="post-date"><?php echo $comment['date'] ?></h4><br>
+              <h3 class="post-detail"><?php echo $comment['detail'] ?></h3>
             </div>
+            
           </div>
         </div>
       </div>
     </div>
+
+
 
     <div id="f">
       <div class="container">
