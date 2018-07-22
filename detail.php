@@ -108,11 +108,12 @@ require_once('dbconnect.php');
               <h4 class="post-date"><?php echo $comment['date'] ?></h4><br>
               <h3 class="post-detail"><?php echo $comment['detail'] ?></h3>
             </div>
-            
           </div>
         </div>
+        <a href="delete.php?id=<?php echo $comment["id"]; ?>" class="btn btn-danger" style="color: white">削除</a>
       </div>
     </div>
+
 
 
 
