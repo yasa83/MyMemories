@@ -13,7 +13,7 @@ require_once('dbconnect.php');
     //データを取り出す
 // 登録ボタンが押された時のみ処理するif文
 // if(!empty($_POST)){
-    $sql = 'SELECT * FROM `feeds`';
+    $sql = 'SELECT * FROM `feeds` ORDER BY `id` DESC';
     $stmt = $dbh->prepare($sql);
     $stmt->execute();
 
