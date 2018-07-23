@@ -29,7 +29,7 @@
 
         // 空チェック
         // ifemptyを使うと０もbkankとして処理されてしまう
-        $count_title = strlen($title);
+        $count_title = mb_strlen($title);
         if($title ==''){
             $errors['title'] = 'blank';
         } elseif ($count_title >= 24) {
