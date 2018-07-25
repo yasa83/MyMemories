@@ -1,18 +1,7 @@
 <?php
-// session_start();
-
 // データベースに接続
 require_once('dbconnect.php');
 
-//出力テスト
-// $title = $_SESSION['register']['title'];
-// $date = $_SESSION['register']['date'];
-// $detail = $_SESSION['register']['detail'];
-// $img_name = $_SESSION['register']['img_name'];
-
-    //データを取り出す
-// 登録ボタンが押された時のみ処理するif文
-// if(!empty($_POST)){
     $sql = 'SELECT * FROM `feeds` ORDER BY `id` DESC';
     $stmt = $dbh->prepare($sql);
     $stmt->execute();
@@ -29,11 +18,6 @@ $comments = array();
 
     $dbh = null;
 
-
-    // unset($_SESSION['register']);
-
-    // exit();
-// }
 
 ?>
 
@@ -79,7 +63,7 @@ $comments = array();
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href=""><i class="fa fa-camera" style="color: #fff;"></i></a>
+          <a class="navbar-brand" href=""><i class="fa fa-heart" style="color: #fff;"></i></a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
