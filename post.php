@@ -1,21 +1,10 @@
 <?php
-    session_start();
-
     date_default_timezone_set('Asia/Manila');
 
     $title = '';
     $date = '';
     $detail = '';
     $errors = [];
-
-    //check.phpから戻って来たときの処理
-    if(isset($_GET['action']) && $_GET['action'] == 'rewrite'){
-        $_POST['input_title'] = $_SESSION['register']['title'];
-        $_POST['input_date'] = $_SESSION['register']['date'];
-        $_POST['input_detail'] = $_SESSION['register']['detail'];
-
-        $errors['rewrite'] =true;
-    }
 
         // emptyは空かどうかを調べる
         // isssetは変数が存在するかどうかチェック
@@ -26,13 +15,12 @@
         $date = $_POST['input_date'];
         $detail = $_POST['input_detail'];
 
-
-        // 空チェック
+        // 空チェックのバリデーション
         // ifemptyを使うと０もbkankとして処理されてしまう
         $count_title = mb_strlen($title);
         if($title ==''){
             $errors['title'] = 'blank';
-        } elseif ($count_title >= 24) {
+        } elseif ($count_title > 24) {
             $errors['title'] = 'length';
         }
 
@@ -41,10 +29,10 @@
         }
 
 
-        $count_detail = strlen($detail);
+        $count_detail = mb_strlen($detail);
         if($detail == ''){
             $errors['detail'] = 'blank';
-        } elseif ($count_detail >= 140 ){
+        } elseif ($count_detail > 140 ){
             $errors['detail'] = 'length';
         }
 
@@ -56,10 +44,10 @@
 
         if(!empty($file_name)){ 
             // 拡張子のチェック
-            $file_type =substr($file_name,-3);
+            $file_type =substr($file_name,-4);
             $file_type = strtolower($file_type);
 
-             if($file_type != 'jpg' && $file_type != 'png' && $file_type != 'gif' && $file_type != 'jpge'){
+             if($file_type != '.jpg' && $file_type != '.png' && $file_type != '.gif' && $file_type != 'jpge'){
                 $errors['img_name'] = 'type';
             }
         }else {
@@ -72,16 +60,14 @@
             $submit_file_name = $date_str.$file_name;
             move_uploaded_file($_FILES['input_img_name']['tmp_name'],'post_img/'.$submit_file_name);
         
+        $sql = 'INSERT INTO `feeds` SET `title`=?, `date`=?, `detail`=?, `img_name`=? ';
+        $data = array($title,$date,$detail,$submit_file_name);
+        $stmt = $dbh->prepare($sql);
+        $stmt->execute($data);
 
-        $_SESSION['register']['title'] = $_POST['input_title'];
-        $_SESSION['register']['date'] = $_POST['input_date'];
-        $_SESSION['register']['detail'] = $_POST['input_detail'];
-        $_SESSION['register']['img_name'] = $submit_file_name;
-
-        
-
-        header('Location: check.php');
+        header('Location: index.php');
         exit();
+        $dbh = null;
         }
 
 
