@@ -1,4 +1,5 @@
 <?php
+    require('dbconnect.php');
     date_default_timezone_set('Asia/Manila');
 
     $title = '';
@@ -69,8 +70,6 @@
         exit();
         $dbh = null;
         }
-
-
     }
 ?>
 
@@ -114,7 +113,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href=""><i class="fa fa-camera" style="color: #fff;"></i></a>
+          <a class="navbar-brand" href=""><i class="fa fa-heart" style="color: #fff;"></i></a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
@@ -128,7 +127,7 @@
     <div class="container">
       <div class="col-xs-8 col-xs-offset-2 thumbnail">
         <h2 class="text-center content_header">写真投稿</h2>
-        <form method="POST" action="post.php" enctype="multipart/form-data">
+        <form method="POST" action="" enctype="multipart/form-data">
           <div class="form-group">
             <label for="title">タイトル</label>
             <input type="text" name="input_title" class="form-control" id="title" placeholder="タイトルを24字以内で入力してください" value="<?php echo htmlspecialchars($title); ?>">
