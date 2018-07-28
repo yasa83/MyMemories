@@ -84,7 +84,7 @@ require_once('dbconnect.php');
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href=""><i class="fa fa-camera" style="color: #fff;"></i></a>
+          <a class="navbar-brand" href=""><i class="fa fa-heart" style="color: #fff;"></i></a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
@@ -118,12 +118,17 @@ require_once('dbconnect.php');
               <input type="text" name="detail" class="form-control" id="validate-text" placeholder="detail" required value="<?php echo $comment['detail'] ?>">
               <input type="hidden" name="id" value="<?php echo $comment['id'] ?>">
             </div>
-            <button type="submit" class="btn btn-primary col-xs-3" >編集</button>
+            
           </form>
+          <div class="edit_btn">
+          <button type="submit" class="btn btn-primary col-xs-3" >編集</button>
+          <a href="delete.php?id=<?php echo $comment["id"]; ?>" class="btn btn-danger" style="color: white">削除</a>
+          </div>
+
 
           </div>
         </div>
-        <a href="delete.php?id=<?php echo $comment["id"]; ?>" class="btn btn-danger" style="color: white">削除</a>
+        
       </div>
     </div>
 
