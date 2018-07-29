@@ -2,12 +2,12 @@
     session_start();
 
     date_default_timezone_set('Asia/Manila');
-    
+
     $name = '';
     $email = '';
     $errors = [];
 
-// check.phpから戻って来たときの処理
+    //check.phpから戻って来たときの処理
     if(isset($_GET['action']) && $_GET['action'] == 'rewrite'){
         $_POST['input_name'] = $_SESSION['register']['name'];
         $_POST['input_email'] = $_SESSION['register']['email'];
@@ -15,19 +15,15 @@
 
         $errors['rewrite'] =true;
     }
-    
-    // emptyは空かどうかを調べる
-    // isssetは変数が存在するかどうかチェック
 
-    // 空のものがあるとポスト送信しない
+    //空のものがあるとポスト送信しない
     if(!empty($_POST)){
         $name = $_POST['input_name'];
         $email = $_POST['input_email'];
         $password = $_POST['input_password'];
 
-        // ユーザー名の空チェック
-        // ifemptyを使うと０もbkankとして処理されてしまう
-        if($name ==''){
+        // ユーザーの空チェック
+        if($name == ''){
             $errors['name'] = 'blank';
         }
 
@@ -35,57 +31,50 @@
             $errors['email'] = 'blank';
         }
 
-
         $count = strlen($password);
         if($password == ''){
             $errors['password'] = 'blank';
-        } elseif ($count < 4 || 16 < $count){
+        }elseif ($count < 4 || 16 < $count) {
             $errors['password'] = 'length';
         }
 
         // 画像名を取得
-        $file_name = '';
+        $file_name ='';
         if(!isset($_GET['action'])){
             $file_name = $_FILES['input_img_name']['name'];
         }
 
-        if(!empty($file_name)){ 
-            // 拡張子のチェック
-            $file_type =substr($file_name, -3);
+        if(!empty($file_name)){
+            // 拡張子チェック
+
+            $file_type = substr($file_name, -3);
             $file_type = strtolower($file_type);
 
-             if($file_type != 'jpg' && $file_type != 'png' && $file_type != 'gif'){
+            if($file_type != 'jpg' && $file_type != 'png' && $file_type != 'gif'){
                 $errors['img_name'] = 'type';
             }
-        }else {
+        }else{
             $errors['img_name'] = 'blank';
         }
 
-                // もしエラーがなかったら以下の処理を行う
-        if (empty($errors)){
+        // もしエラーが出なければ以下の処理をする
+        if(empty($errors)){
             $date_str = date('YmdHis');
             $submit_file_name = $date_str.$file_name;
-            move_uploaded_file($_FILES['input_img_name']['tmp_name'],'../user_profile_img/'.$submit_file_name);
-        
+            move_uploaded_file($_FILES['input_img_name']['tmp_name'],'/user_profile_img/'.$submit_file_name);
 
-        $_SESSION['register']['name'] = $_POST['input_name'];
-        $_SESSION['register']['email'] = $_POST['input_email'];
-        $_SESSION['register']['password'] = $_POST['input_password'];
-        $_SESSION['register']['img_name'] = $submit_file_name;
+            $_SESSION['register']['name'] = $_POST['input_name'];
+            $_SESSION['register']['email'] = $_POST['input_email'];
+            $_SESSION['register']['password'] = $_POST['input_password'];
+            $_SESSION['register']['img_name'] = $submit_file_name;
 
-        
 
-        header('Location: check.php');
-        exit();
+            header('Location: check.php');
+            exit();
         }
 
 
-
-        
-
-
     }
-
 
 ?>
 <!DOCTYPE html>
