@@ -168,7 +168,7 @@
             <?php endif; ?>
           </div>
           <input type="submit" class="btn btn-default" value="確認">
-          <a href="../signin.php" style="float: right; padding-top: 6px;" class="text-success">サインイン</a>
+          <a href="signin.php" style="float: right; padding-top: 6px;" class="text-success">サインイン</a>
         </form>
       </div>
     </div>
