@@ -34,11 +34,6 @@
           </button>
           <a class="navbar-brand" href=""><i class="fa fa-heart" style="color: #fff;"></i></a>
         </div>
-        <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav navbar-right">
-            <li class="active"><a href="signup.php">ユーザー登録がまだの方はこちら</a></li>
-          </ul>
-        </div><!--/.nav-collapse -->
       </div>
     </div>
 
@@ -63,6 +58,7 @@
                         <input type="password" name="input_password" class="form-control" id="password" placeholder="4 ~ 16文字のパスワード">
                     </div>
                     <input type="submit" class="btn btn-info" value="サインイン">
+                    <a href="signup.php" style="float: right; padding: 20px; background-color: blue; color: white;" class="text-success">ユーザー登録がまだの方はこちら</a>
                 </form>
             </div>
     </div>
