@@ -26,10 +26,10 @@ if(!empty($_POST)){
     unset($_SESSION['register']);
     header('Location: thanks.php');
     exit();
-
 }
-
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
