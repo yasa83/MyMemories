@@ -102,7 +102,6 @@ if(!empty($_POST)){
             </div>
         </div>
     </div>
-
         <!-- ここまで -->
 
 <footer>
