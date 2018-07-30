@@ -1,3 +1,49 @@
+<?php
+    session_start();
+    require('dbconnect.php');
+
+// 初期化
+    $errors = [];
+
+    if(!empty($_POST)){
+        $email = $_POST['input_email'];
+        $password = $_POST['input_password'];
+
+        if($email!=''&& $password!=''){
+            //データベースとの照合処理
+            $sql = 'SELECT * FROM `users` WHERE `email`=?';
+            $data = [$email];
+            $stmt = $dbh->prepare($sql);
+            $stmt->execute($data);
+            $record = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            // メールアドレスでの本人確認
+            // DBのemailと$recordが一致しなかったらfalseになる
+            if($record == false){
+                $errors['signin'] = 'failed';
+            }
+
+            
+            // passwordが正しくないとエラーがでる
+            // $passwordの配列のなかの記録と一致するか
+            if(password_verify($password,$record['password'])){
+                // 認証成功
+                // SESSION変数にIDを保存
+                $_SESSION['id'] = $record['id'];
+                //timeline.phpに移動
+                header("Location: index.php");
+                exit();
+            }else{
+                // 認証失敗
+                $errors['signin'] ='failed';
+            }
+        }else{
+            $errors['signin'] ='blank';
+        }
+
+
+    }
+?>
 
 <!DOCTYPE html>
 <html lang="en">
