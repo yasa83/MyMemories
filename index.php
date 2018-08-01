@@ -1,18 +1,6 @@
 <?php
 // データベースに接続
-session_start();
 require_once('dbconnect.php');
-
-// 直接このページに来たらsignin.phpに飛ぶようにする
-// これがないとSESSIONの値がないのでエラーになる
-if (!isset($_SESSION['id'])){
-    header('Location:signin.php')
-    exit();
-}
-
-// 
-
-
 
     $sql = 'SELECT * FROM `feeds` ORDER BY `id` DESC';
     $stmt = $dbh->prepare($sql);
