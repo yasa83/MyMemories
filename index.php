@@ -1,22 +1,49 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
+
+
 // データベースに接続
+session_start();
 require_once('dbconnect.php');
 
-    $sql = 'SELECT * FROM `feeds` ORDER BY `id` DESC';
-    $stmt = $dbh->prepare($sql);
-    $stmt->execute();
+// 直接このページに来たらsignin.phpに飛ぶようにする
+if(!isset($_SESSION['id'])){
+    header('Location:signin.php');
+    exit();
+}
 
+// ユーザーのSQLから配列を受け取る
+$data=[];
+$id =[];
+$sql = 'SELECT * FROM `users` WHERE `id`=? ';
+$data = array( $_SESSION['id']);
+$stmt = $dbh->prepare($sql);
+$stmt->execute($data);
+
+$signin_user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+
+// 初期化
+$errors  = array();
+
+// 写真の配列からデータを受け取る
+$sql = 'SELECT * FROM `feeds` ORDER BY `id` DESC';
+$stmt = $dbh->prepare($sql);
+$stmt->execute();
 
 $comments = array();
     while (1) {
-        $rec = $stmt->fetch(PDO::FETCH_ASSOC);
-        if($rec == false) {
-        break;
-              }
+    $rec = $stmt->fetch(PDO::FETCH_ASSOC);
+    if($rec == false) {
+    break;
+    }
     $comments[] = $rec;
-              }
+    }
 
-    $dbh = null;
+
+
+
 
 
 ?>
@@ -45,11 +72,6 @@ $comments = array();
     <script src="assets/js/chart.js"></script>
 
 
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-    <![endif]-->
   </head>
 
   <body>
@@ -67,9 +89,20 @@ $comments = array();
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li class="active"><a href="post.php">Post photos</a></li>
+            <li class="active" style="margin: 0 15px 0 15px;"><a href="post.php">Post photos</a></li>
+
+            <!-- ユーザーID取得 -->
+            <li class="dropdown" style="background-color: #fff;">
+                <span hidden id="signin-user"><? $signin_user['id']; ?></span>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img src="user_profile_img/<?php echo $signin_user['img_name']; ?>" width="20" class="img-circle"><?php echo $signin_user['name']; ?><span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">マイページ</a></li>
+                    <li><a href="signout.php">サインアウト</a></li>
+                </ul>
+            </li>
           </ul>
-        </div><!--/.nav-collapse -->
+          <!-- ここまで -->
+        </div>
       </div>
     </div>
 
@@ -91,28 +124,15 @@ $comments = array();
     		<div class="row centered mt grid">
     			<h3>Album</h3>
 
-
-           <?php foreach ($comments as $comment): ?>
+            <?php if($comments["user_id"] == $_SESSION["id"]): ?>
+            <?php foreach ($comments as $comment): ?>
     			<div class="col-lg-4">
     				<a href="detail.php?id=<?php echo $comment["id"]; ?>" class="trim"><img class="picture" src="post_img/<?php echo $comment['img_name']; ?>" class="img-responsive img-thumbnail"></a>
+            </div>
+            <?php endforeach; ?>
+            <?php endif; ?>
 
-    			</div>
-          <?php endforeach; ?>
-    		</div>
-    		
-
-
-    		<!-- <div class="row centered mt grid">
-    			<div class="col-lg-4">
-    				<a href="detail.php"><img class="picture" src="assets/img/04.jpg" alt=""></a>
-    			</div>
-    			<div class="col-lg-4">
-    				<a href="detail.php"><img class="picture" src="assets/img/05.jpg" alt=""></a>
-    			</div>
-    			<div class="col-lg-4">
-    				<a href="detail.php"><img class="picture" src="assets/img/06.jpg" alt=""></a>
-    			</div>
-        </div> -->
+        </div> 
   		</div>
   	</div>
 
@@ -122,9 +142,7 @@ $comments = array();
   				<p>I <i class="fa fa-heart"></i> Cubu.</p>
   			</div>
   		</div>
-
-  	</div>
-
+    </div>
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
