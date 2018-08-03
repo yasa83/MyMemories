@@ -17,7 +17,7 @@ if(!isset($_SESSION['id'])){
 $data=[];
 $id =[];
 $sql = 'SELECT * FROM `users` WHERE `id`=? ';
-$data = array( $_SESSION['id']);
+$data = array($_SESSION['id']);
 $stmt = $dbh->prepare($sql);
 $stmt->execute($data);
 
@@ -28,23 +28,19 @@ $signin_user = $stmt->fetch(PDO::FETCH_ASSOC);
 $errors  = array();
 
 // 写真の配列からデータを受け取る
-$sql = 'SELECT * FROM `feeds` ORDER BY `id` DESC';
+$sql = 'SELECT * FROM `feeds` WHERE user_id = ?  ORDER BY `id` DESC';
+$data = array($_SESSION['id']);
 $stmt = $dbh->prepare($sql);
-$stmt->execute();
+$stmt->execute($data);
 
 $comments = array();
     while (1) {
-    $rec = $stmt->fetch(PDO::FETCH_ASSOC);
-    if($rec == false) {
-    break;
+        $rec = $stmt->fetch(PDO::FETCH_ASSOC);
+        if($rec == false) {
+            break;
+        }
+        $comments[] = $rec;
     }
-    $comments[] = $rec;
-    }
-
-
-
-
-
 
 ?>
 
@@ -124,13 +120,11 @@ $comments = array();
     		<div class="row centered mt grid">
     			<h3>Album</h3>
 
-            <?php if($comments["user_id"] == $_SESSION["id"]): ?>
             <?php foreach ($comments as $comment): ?>
     			<div class="col-lg-4">
     				<a href="detail.php?id=<?php echo $comment["id"]; ?>" class="trim"><img class="picture" src="post_img/<?php echo $comment['img_name']; ?>" class="img-responsive img-thumbnail"></a>
             </div>
             <?php endforeach; ?>
-            <?php endif; ?>
 
         </div> 
   		</div>
