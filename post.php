@@ -81,7 +81,7 @@
 
         header('Location: index.php');
         exit();
-        $dbh = null;
+        // $dbh = null;
         }
     }
 ?>
@@ -150,10 +150,10 @@
     
     <div class="container">
       <div class="col-xs-8 col-xs-offset-2 thumbnail">
-        <h2 class="text-center content_header">写真投稿</h2>
+        <h2 class="text-center content_header">POST PICTURE</h2>
         <form method="POST" action="" enctype="multipart/form-data">
           <div class="form-group">
-            <label for="title">タイトル</label>
+            <label for="title">Title</label>
             <input type="text" name="input_title" class="form-control" id="title" placeholder="タイトルを24字以内で入力してください" value="<?php echo htmlspecialchars($title); ?>">
             <?php if (isset($errors['title']) && $errors['title'] == 'blank'): ?>
                 <p class="text-danger">タイトルを入力してください</p>
@@ -166,7 +166,7 @@
 
 
           <div class="form-group">
-            <label for="date">日付</label>
+            <label for="date">Date</label>
             <input type="date" name="input_date" class="form-control" value="<?php echo htmlspecialchars($date); ?>">
             <?php if(isset($errors['date']) && $errors['date'] == 'blank'): ?>
                 <p class="text-danger">日付を入力してください</p>
@@ -174,7 +174,7 @@
           </div>
 
           <div class="form-group">
-            <label for="detail">詳細</label>
+            <label for="detail">Detail</label>
             <input type="text" name="input_detail" class="form-control" rows="4" placeholder="場所、天気、カメラなどの詳細を140字以内で記述してください" value="<?php echo htmlspecialchars($detail); ?>">
             
             <?php if(isset($errors['detail']) && $errors['detail'] == 'blank'): ?>
@@ -186,7 +186,7 @@
           </div>
 
           <div class="form-group">
-            <label for="img_name">写真</label>
+            <label for="img_name"></label>
             <input type="file" name="input_img_name" id="image/*"
             id="img_name">
             <?php if(isset($errors['img_name']) && $errors['img_name'] == 'blank'): ?>
@@ -200,9 +200,9 @@
           <br>
 
           <ul class="nav navbar-nav navbar-left">
-            <li class="active"><a href="index.php" style="margin: 12px;">戻る</a></li>
+            <li class="active"><a href="index.php" style="margin: 15px,background-color: black;">Back</a></li>
           </ul>
-          <input type="submit" class="btn btn-primary" value="投稿">
+          <input type="submit" class="btn btn-primary" value="POST">
         </form>
       </div>
     </div>

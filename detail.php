@@ -2,11 +2,15 @@
 session_start();
 require_once('dbconnect.php');
 
+   // ユーザー情報
+    $signin_user =[];
+    $id = [];
+    $sql = 'SELECT * FROM `users` WHERE `id`=? ';
+    $signin_user = array($_SESSION['id']);
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute($signin_user);
+    $signin_user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    $title = $_SESSION['register']['title'];
-    $date = $_SESSION['register']['date'];
-    $detail = $_SESSION['register']['detail'];
-    $img_name = $_SESSION['register']['img_name'];
 
     // DBからデータを取得する処理
     $sql = 'SELECT * FROM `feeds` WHERE `id` = ?';
@@ -16,34 +20,8 @@ require_once('dbconnect.php');
     $comment = $stmt->fetch(PDO::FETCH_ASSOC);
     $dbh = null;
 
-    // ユーザー情報
-    $data =[];
-    $id = [];
-    $sql = 'SELECT * FROM `users` WHERE `id`=? ';
-    $data = array($_SESSION['id']);
-    $stmt = $dbh->prepare($sql);
-    $stmt->execute($data);
 
 
-
-
-
-// $comments = array();
-//     while (1) {
-//         $rec = $stmt->fetch(PDO::FETCH_ASSOC);
-//         if($rec == false) {
-//         break;
-//               }
-//     $comments[] = $rec;
-//               }
-
-//     $dbh = null;
-
-
-    // unset($_SESSION['register']);
-
-    // exit();
-// }
 
 ?>
 
@@ -97,7 +75,17 @@ require_once('dbconnect.php');
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li class="active"><a href="index.php">Main page</a></li>
+            <li class="active" style="margin: 0 15px 0 15px;"><a href="post.php">Post photos</a></li>
+
+            <!-- ユーザーID取得 -->
+            <li class="dropdown" style="background-color: #fff;">
+                <span hidden id="signin-user"><? $signin_user['id']; ?></span>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img src="user_profile_img/<?php echo $signin_user['img_name']; ?>" width="20" class="img-circle"><?php echo $signin_user['name']; ?><span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="index.php">マイページ</a></li>
+                    <li><a href="signout.php">サインアウト</a></li>
+                </ul>
+            </li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -115,23 +103,23 @@ require_once('dbconnect.php');
 
             <form action="update.php" method="post">
             <div class="details">
-              <h3>写真タイトル</h3>
+              <h3>Title</h3>
               <input type="text" name="title" class="form-control" id="validate-text" placeholder="title" required value="<?php echo $comment['title'] ?>">
               <input type="hidden" name="id" value="<?php echo $comment['id'] ?>">
 
-              <h3>撮影日</h3>
+              <h3>Date</h3>
               <input type="text" name="date" class="form-control" id="validate-text" placeholder="date" required value="<?php echo $comment['date'] ?>">
               <input type="hidden" name="id" value="<?php echo $comment['id'] ?>">
 
-              <h3>詳細</h3>
+              <h3>Detail</h3>
               <input type="text" name="detail" class="form-control" id="validate-text" placeholder="detail" required value="<?php echo $comment['detail'] ?>">
               <input type="hidden" name="id" value="<?php echo $comment['id'] ?>">
             </div>
             
           </form>
           <div class="edit_btn">
-          <button type="submit" class="btn btn-primary col-xs-3" >編集</button>
-          <a href="delete.php?id=<?php echo $comment["id"]; ?>" class="btn btn-danger" style="color: white">削除</a>
+          <button type="submit" class="btn btn-primary col-xs-3" style="margin: 0 30px 0 20px; width: 125px;">Edit</button>
+          <a href="delete.php?id=<?php echo $comment["id"]; ?>" class="btn btn-danger" style="color: white">Remove</a>
           </div>
 
 
