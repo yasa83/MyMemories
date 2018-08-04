@@ -1,11 +1,24 @@
 <?php
-    require('dbconnect.php');
+    session_start();
+    require_once('dbconnect.php');
     date_default_timezone_set('Asia/Manila');
 
     $title = '';
     $date = '';
     $detail = '';
     $errors = [];
+
+    // ユーザー情報取得
+    $data=[];
+    $id = [];
+    $sql = 'SELECT * FROM `users` WHERE `id`=? ';
+    $data = array($_SESSION['id']);
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute($data);
+
+    $signin_user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+
 
         // emptyは空かどうかを調べる
         // isssetは変数が存在するかどうかチェック
@@ -117,9 +130,20 @@
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li class="active"><a href="index.php">Main page</a></li>
+            <li class="active" style="margin: 0 15px 0 15px;"><a href="post.php">Post photos</a></li>
+
+                        <!-- ユーザーID取得 -->
+            <li class="dropdown" style="background-color: #fff;">
+                <span hidden id="signin-user"><? $signin_user['id']; ?></span>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img src="user_profile_img/<?php echo $signin_user['img_name']; ?>" width="20" class="img-circle"><?php echo $signin_user['name']; ?><span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="index.php">マイページ</a></li>
+                    <li><a href="signout.php">サインアウト</a></li>
+                </ul>
+            </li>
           </ul>
-        </div><!--/.nav-collapse -->
+          <!-- ここまで -->
+        </div>
       </div>
     </div>
   

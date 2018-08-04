@@ -1,14 +1,12 @@
 <?php
-// session_start();
-
-// データベースに接続
+session_start();
 require_once('dbconnect.php');
 
-//出力テスト
-// $title = $_SESSION['register']['title'];
-// $date = $_SESSION['register']['date'];
-// $detail = $_SESSION['register']['detail'];
-// $img_name = $_SESSION['register']['img_name'];
+
+    $title = $_SESSION['register']['title'];
+    $date = $_SESSION['register']['date'];
+    $detail = $_SESSION['register']['detail'];
+    $img_name = $_SESSION['register']['img_name'];
 
     // DBからデータを取得する処理
     $sql = 'SELECT * FROM `feeds` WHERE `id` = ?';
@@ -17,6 +15,17 @@ require_once('dbconnect.php');
     $stmt->execute($data);
     $comment = $stmt->fetch(PDO::FETCH_ASSOC);
     $dbh = null;
+
+    // ユーザー情報
+    $data =[];
+    $id = [];
+    $sql = 'SELECT * FROM `users` WHERE `id`=? ';
+    $data = array($_SESSION['id']);
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute($data);
+
+
+
 
 
 // $comments = array();
