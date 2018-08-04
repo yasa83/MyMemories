@@ -18,9 +18,24 @@ require_once('dbconnect.php');
     $stmt = $dbh->prepare($sql);
     $stmt->execute($data);
     $comment = $stmt->fetch(PDO::FETCH_ASSOC);
-    $dbh = null;
+    // $dbh = null;
 
+    // 編集機能
+    if(!empty($_POST)){
+        $title = $_POST['title'];
+        $date = $_POST['date'];
+        $detail = $_POST['detail'];
+        $data = [];
+        $update_sql = 'UPDATE `feeds` SET `title`= ?,`date`=?,`detail`=? where id=?';
+        $data = array($title,$date,$detail,$_GET['id']);
+        $stmt = $dbh->prepare($update_sql);
+        $stmt->execute($data);
 
+        header("Location: index.php");
+        exit();
+    }
+
+ $dbh = null;
 
 
 ?>
@@ -101,7 +116,7 @@ require_once('dbconnect.php');
           </div>
           <div class="col-xs-8">
 
-            <form action="update.php" method="post">
+            <form action="" method="post">
             <div class="details">
               <h3>Title</h3>
               <input type="text" name="title" class="form-control" id="validate-text" placeholder="title" required value="<?php echo $comment['title'] ?>">
@@ -116,9 +131,10 @@ require_once('dbconnect.php');
               <input type="hidden" name="id" value="<?php echo $comment['id'] ?>">
             </div>
             
-          </form>
+          
           <div class="edit_btn">
           <button type="submit" class="btn btn-primary col-xs-3" style="margin: 0 30px 0 20px; width: 125px;">Edit</button>
+          </form>
           <a href="delete.php?id=<?php echo $comment["id"]; ?>" class="btn btn-danger" style="color: white">Remove</a>
           </div>
 
