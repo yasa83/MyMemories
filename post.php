@@ -74,8 +74,8 @@
             $submit_file_name = $date_str.$file_name;
             move_uploaded_file($_FILES['input_img_name']['tmp_name'],'post_img/'.$submit_file_name);
         
-        $sql = 'INSERT INTO `feeds` SET `title`=?, `date`=?, `detail`=?, `img_name`=? ';
-        $data = array($title,$date,$detail,$submit_file_name);
+        $sql = 'INSERT INTO `feeds` SET `title`=?, `date`=?, `detail`=?, `img_name`=? ,`user_id`=? ';
+        $data = array($title,$date,$detail,$submit_file_name,$_SESSION['id']);
         $stmt = $dbh->prepare($sql);
         $stmt->execute($data);
 
